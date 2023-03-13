@@ -72,7 +72,7 @@ class Ball(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image = pygame.Surface([10, 10])
-        self.image.fill(WHITE)
+        self.image.fill(YELLOW)
         self.rect = self.image.get_rect()
         self.rect.x = SCREEN_WIDTH // 2 - 5
         self.rect.y = SCREEN_HEIGHT - 70
@@ -111,6 +111,7 @@ all_sprites_list.add(ball)
 
 # Definir el marcador y variables del juego
 score = 0
+life = 3
 font = pygame.font.Font(None, 36)
  
 # Bucle principal del juego
@@ -135,16 +136,25 @@ while not game_over:
  
     # Actualizar objetos del juego
     all_sprites_list.update()
+    
+    
+    
+    
+    
+    
  
     # Verificar si la pelota ha golpeado la parte inferior de la pantalla
     if ball.rect.bottom > SCREEN_HEIGHT:
+        life -= 1
         game_over = True
  
     # Dibujar objetos del juego
     screen.fill(BLACK)
     all_sprites_list.draw(screen)
     score_text = font.render("Score: {}".format(score), True, WHITE)
+    life_text = font.render("Life: {}".format(life), True, WHITE)
     screen.blit(score_text, [10, 10])
+    screen.blit(life_text, [10, 40])
     pygame.display.flip()
  
     # Establecer el límite de fotogramas
